@@ -1,0 +1,159 @@
+<div class="container">
+    <div class="maindiv">
+        <div>
+            <a href="/" class="btn btn-primary"><span class="text-gradient" id="spanhome"><<<</span> Home</a>
+           
+        </div>
+        
+        <form id="update_user">
+            <div class="row">
+                <div class="col-md-6" id="firstcolumn">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input class="form-control" type="text" name="name" id="name" value="{{user.name}}">
+                        <input type="hidden" name="_id" value="{{user._id}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input class="form-control" type="email" name="email" id="email" value="{{user.email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Gender :</label>
+                        <ul>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="gender" type="radio" value="Male"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Male
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="gender" type="radio" value="Female"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Female
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+                <div class="col-md-6" id="secondcolumn">
+                    <div class="form-group">
+                        <label for="">Sallary</label>
+                        <input class="form-control" type="number" name="sallary" id="sallary" value="{{user.sallary}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Profession</label>
+                        <input class="form-control" type="text" name="profession" id="profession" value="{{user.profession}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Status :</label>
+                        <ul>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="status" type="radio" value="Active"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Active
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="status" type="radio" value="Inactive"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Inactive
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+                <button type="submit"   class="btn btn-primary" id="submitbutton">Submit</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+{{!-- <script>
+    function update-userdata(userId)
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        $("#update_user").submit((event) => {
+            alert('Data updated successfully')
+            event.preventDefault();
+            $.ajax({
+                url: '/update-user',
+                method: 'post',
+                data: $("#update_user").serialize(),
+                success: (response) => {
+                    
+                }
+            })
+        })
+    })
+</script>
+
+
+    
+
+<style>
+    #spanhome{
+        font-size: 1em;
+        font-weight: bold;
+    }
+    a{
+        margin-top: 5em;
+        margin-bottom: 4px;
+    }
+    #name,
+    #email,
+    #sallary.#profession {
+
+        width: 40%;
+    }
+
+    #firstcolumn,
+    #secondcolumn {}
+
+    form {
+        border-radius: 10px;
+        padding: 2em 5em 2em 5em;
+        background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(176,73,73,1) 50%, rgba(252,176,69,1) 100%);
+    }
+    label{
+        font-size: larger;
+        font-weight: bolder;
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+    }
+    input:hover{
+        border-color: crimson;
+        border-width: 3px;
+    }
+
+    li {
+        padding-right: 10px;
+        margin-left: 10px;
+    }
+    #submitbutton{
+        margin: auto;
+        width: 100%;
+    }
+</style>
+

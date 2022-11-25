@@ -1,0 +1,134 @@
+<div class="container">
+    
+    <div class="tablediv">
+        <div>
+            <span class="signal">click the button to add new user </span><a href="/add-user" class="btn" id="roottoadduser"><span class="text-gradient">New User <i class="fa-solid fa-user"></i></span></a>
+           <input type="search" class="form-control" id="search">
+           <button class="btn" id="searchname">search here</button>
+        </div>
+        <table class="table col-md-12">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Sallary</th>
+                    <th scope="col">profession</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <script>
+
+                </script>
+                {{#each users}}
+                <tr class="tbodyraw" aria-colcount="trow">
+                    <td>{{users.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.gender}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.status}}</td>
+                    <td>{{this.sallary}}</td>
+                    <td>{{this.profession}}</td>
+                    <td><a href="/update-user/{{this._id}}" class="btn" id="editbutton">Edit</a></td>
+                    <td><button onclick="deleteUser('{{this._id}}')" class="btn" id="deletebutton">Delete</button></td>
+
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function deleteUser(userId) {
+        if(confirm('Do you want to delete the userdata permenantly')) {
+            $.ajax({
+            url: '/delete-user/' + userId,
+            method: 'get',
+            success: (response) => {
+                alert('User deleted successfully')
+                location.reload()
+                
+            }
+            })
+        }
+        
+    }
+
+$(document).ready(function() {
+    $('#search').keyup(function() {
+        var value = $(this).val().toLowerCase();
+        $('#myTable tr').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        })
+    })
+})
+    
+</script>
+
+
+<style>
+    #search{
+        width: 55%;
+        height: 37px;
+        border: 2px solid black;
+        float: left;
+        margin-right: 2px;
+
+    }
+    #searchname{
+        float: left ;
+        display: i;
+        border: 2px solid black;
+        font-weight: bold;
+        width: 150px;
+
+    }
+    .tablediv{
+        margin-top:80px;
+    }
+    thead{
+        background: rgb(100,124,123);
+background: radial-gradient(circle, rgba(100,124,123,1) 0%, rgba(64,168,172,1) 0%);
+    }
+    #roottoadduser{
+        float: left;
+        color: black;
+        font-weight: bold;
+        background: rgb(186,52,190);
+background: linear-gradient(0deg, rgba(186,52,190,1) 0%, rgba(210,89,169,1) 100%);
+        margin-right: 2px;
+    }
+    .signal{
+        color: darkblue;
+        float: left;
+        margin-right: 2px;
+    }
+    tbody{
+        background-color: whitesmoke;
+    }
+    #editbutton,#deletebutton{
+        border: 1px solid wheat;
+        font-weight: bold;
+
+    }
+    #editbutton:hover{
+        color: white;
+        background: linear-gradient(to right, darkblue,rgb(46, 117, 139) );
+    }
+    #deletebutton:hover{
+        color: white;
+        background: linear-gradient(to right, rgb(216, 41, 41),rgb(180, 51, 29) );
+    }
+    #deletebutton{
+        color: red;
+    }
+    .tbodyraw{
+        font-weight: bold;
+    }
+
+</style>
